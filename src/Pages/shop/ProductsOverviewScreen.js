@@ -5,22 +5,29 @@ import {
     FlatList,
     StyleSheet
 } from "react-native";
+import { useSelector } from 'react-redux';
 
 const ProductsOverviewScreen = (props) => {
+    const produts = useSelector(state => state.products.availableProducts)
+
     return (
         <View style={styles.container}>
-            <Text>Product Overview</Text>
             <FlatList
-            
+                data={produts}
+                keyExtractor={item => item.id}
+                renderItem={itemData => <Text>{itemData.item.title}</Text>}
             />
         </View>
     );
 };
 
+ProductsOverviewScreen.navigationOptions = {
+    headerTitle: 'All Products'
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center'
     }
 });
