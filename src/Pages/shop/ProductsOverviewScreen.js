@@ -7,6 +7,8 @@ import {
 } from "react-native";
 import { useSelector } from 'react-redux';
 
+import ProductItem from '../../Molekul/shop/ProductItem';
+
 const ProductsOverviewScreen = (props) => {
     const produts = useSelector(state => state.products.availableProducts)
 
@@ -15,7 +17,15 @@ const ProductsOverviewScreen = (props) => {
             <FlatList
                 data={produts}
                 keyExtractor={item => item.id}
-                renderItem={itemData => <Text>{itemData.item.title}</Text>}
+                renderItem={itemData => (
+                    <ProductItem 
+                        image={itemData.item.imageUrl} 
+                        title={itemData.item.title} 
+                        price={itemData.item.price} 
+                        onViewDetail={()=> {}} 
+                        onAddToCart={()=> {}} 
+                    />
+                )}
             />
         </View>
     );
