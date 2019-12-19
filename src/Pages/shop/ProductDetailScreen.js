@@ -2,10 +2,15 @@ import React, {} from "react";
 import { 
     View,
     Text,
+    Image,
+    ScrollView,
+    Button,
     StyleSheet
 } from "react-native";
 
 import { useSelector } from 'react-redux';
+
+import Colors from '../../Template/constants/Colors';
 
 
 const ProductDetail = (props) => {
@@ -16,9 +21,21 @@ const ProductDetail = (props) => {
     ));
 
     return (
-        <View style={styles.container}>
-            <Text>{selectedProduct.title}</Text>
-        </View>
+        <ScrollView>
+            <Image
+                style={styles.image}
+                source={{uri: selectedProduct.imageUrl}}
+            />
+            <View style={styles.actions}>
+                <Button
+                    title="Add to cart"
+                    onPress={()=>{}}
+                    color= {Colors.primary}
+                />
+            </View>
+            <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
+            <Text style={styles.description}>{selectedProduct.description}</Text>
+        </ScrollView>
     );
 };
 
@@ -29,11 +46,25 @@ ProductDetail.navigationOptions = navData => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+    image: {
+        height: 300,
+        width: '100%'
+    },
+    actions: {
+        marginVertical: 10,
+        alignItems: 'center'
+    },
+    price: {
+        fontSize: 20,
+        color: '#888',
+        textAlign: 'center',
+        marginVertical: 20,
+    },
+    description: {
+        fontSize: 14,
+        textAlign: 'center',
+        marginHorizontal: 20
+    },
 });
 
 export default ProductDetail;
