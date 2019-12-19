@@ -56,12 +56,13 @@ const styles = StyleSheet.create({
     },
     price: {
         fontSize: 20,
+        fontFamily: 'Roboto-Bold',
         color: '#888',
         textAlign: 'center',
         marginVertical: 20,
     },
     description: {
-        fontSize: 14,
+        fontSize: 14,fontFamily: 'Roboto-Light',
         textAlign: 'center',
         marginHorizontal: 20
     },
