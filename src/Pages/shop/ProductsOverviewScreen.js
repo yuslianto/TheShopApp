@@ -5,12 +5,14 @@ import {
     FlatList,
     StyleSheet
 } from "react-native";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ProductItem from '../../Molekul/shop/ProductItem';
+import * as cartActions from '../../Template/store/actions/cart';
 
 const ProductsOverviewScreen = (props) => {
     const produts = useSelector(state => state.products.availableProducts)
+    const dispatch = useDispatch();
 
     return (
         <View style={styles.container}>
@@ -29,7 +31,9 @@ const ProductsOverviewScreen = (props) => {
 
                             });
                         }} 
-                        onAddToCart={()=> {}} 
+                        onAddToCart={()=> {
+                            dispatch(cartActions.addToCart(itemData.item));
+                        }} 
                     />
                 )}
             />
