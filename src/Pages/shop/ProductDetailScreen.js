@@ -7,7 +7,6 @@ import {
     Button,
     StyleSheet
 } from "react-native";
-
 import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../../Template/constants/Colors';
