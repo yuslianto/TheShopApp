@@ -28,3 +28,9 @@ export default function App() {
     </Provider>
   );
 }
+
+/*
+adding \ in blacklist.js 
+  /node_modules[\/\\]react[\/\\]dist[\/\\]./
+  metro-config src default sharedBlacklist 
+*/
