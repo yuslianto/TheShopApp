@@ -7,7 +7,9 @@ import {
     StyleSheet
 } from "react-native";
 import { useSelector } from 'react-redux';
+
 import Colors from "../../Template/constants/Colors";
+import CartItem from '../../Molekul/shop/CartItem';
 
 const CartScreen = (props) => {
     const cartTotalAmount = useSelector (state => state.cart.totalAmount);
@@ -39,9 +41,18 @@ const CartScreen = (props) => {
                     }}
                 />
             </View>
-            <View>
-                <Text>CART ITEMS</Text>
-            </View>
+            <FlatList
+                data={cartItems}
+                keyExtractor={item => item.productId}
+                renderItem={ itemData => (
+                    <CartItem 
+                        quantity={itemData.item.quantity} 
+                        title={itemData.item.title} 
+                        amount={itemData.item.sum} 
+                        onRemove={()=>{}} 
+                    />
+                )}
+            />
         </View>
     );
 };
