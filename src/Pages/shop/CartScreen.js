@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Colors from "../../Template/constants/Colors";
 import CartItem from '../../Molekul/shop/CartItem';
 import * as cartAction from '../../Template/store/actions/cart';
+import * as orderActions from '../../Template/store/actions/orders';
 
 const CartScreen = (props) => {
     const cartTotalAmount = useSelector (state => state.cart.totalAmount);
@@ -43,7 +44,7 @@ const CartScreen = (props) => {
                     color= {Colors.accent}
                     disabled={cartItems.length === 0}
                     onPress={() => {
-
+                        dispatch(orderActions.addOrder(cartItems, cartTotalAmount));
                     }}
                 />
             </View>
