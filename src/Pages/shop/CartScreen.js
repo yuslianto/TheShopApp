@@ -6,10 +6,11 @@ import {
     Button,
     StyleSheet
 } from "react-native";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from "../../Template/constants/Colors";
 import CartItem from '../../Molekul/shop/CartItem';
+import * as cartAction from '../../Template/store/actions/cart';
 
 const CartScreen = (props) => {
     const cartTotalAmount = useSelector (state => state.cart.totalAmount);
@@ -24,8 +25,13 @@ const CartScreen = (props) => {
                 sum: state.cart.items[key].sum,
             });
         }
-        return transformedCarItems;
+        return transformedCarItems.sort((a, b) => 
+            a.productId > b.productId ? 1 : -1
+        );
     });
+
+    const dispatch = useDispatch();
+
     return (
         <View style={styles.screen}>
             <View style={styles.summary}>
@@ -47,9 +53,11 @@ const CartScreen = (props) => {
                 renderItem={ itemData => (
                     <CartItem 
                         quantity={itemData.item.quantity} 
-                        title={itemData.item.title} 
+                        title={itemData.item.productTitle} 
                         amount={itemData.item.sum} 
-                        onRemove={()=>{}} 
+                        onRemove={()=>{
+                            dispatch(cartAction.removeFromCart(itemData.item.productId));
+                        }} 
                     />
                 )}
             />
