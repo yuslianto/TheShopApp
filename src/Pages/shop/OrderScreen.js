@@ -1,10 +1,13 @@
 import React from "react";
 import { 
     Text,
-    FlatList
+    FlatList,
+    Platform
 } from "react-native";
 import { useSelector } from 'react-redux';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { HeaderButtons, Item} from 'react-navigation-header-buttons';
+
+import HeaderButton from '../../Molekul/UI/HeaderButton'
 
 const OrdersScreen = (props) => {
     const orders = useSelector(state => state.orders.orders)
@@ -18,12 +21,21 @@ const OrdersScreen = (props) => {
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+OrdersScreen.navigationOptions = navData => {
+    return {
+        headerTitle: 'Yours Orders',
+        headerLeft: (
+            <HeaderButtons HeaderButtonComponent= {HeaderButton}>
+                <Item
+                    title= "Cart"
+                    iconName= {Platform.OS === 'android' ? "md-menu" : "ios-menu"}
+                    onPress={() => {
+                        navData.navigation.toggleDrawer();
+                    }}
+                />
+            </HeaderButtons>
+        ),
     }
-});
+};
 
 export default OrdersScreen;

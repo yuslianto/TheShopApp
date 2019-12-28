@@ -9,9 +9,9 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 
+import HeaderButton from '../../Molekul/UI/HeaderButton'
 import ProductItem from '../../Molekul/shop/ProductItem';
 import * as cartActions from '../../Template/store/actions/cart';
-import HeaderButton from '../../Molekul/UI/HeaderButton'
 
 const ProductsOverviewScreen = (props) => {
     const produts = useSelector(state => state.products.availableProducts)
@@ -47,6 +47,17 @@ const ProductsOverviewScreen = (props) => {
 ProductsOverviewScreen.navigationOptions = navData => {
     return {
         headerTitle: 'All Products',
+        headerLeft: (
+            <HeaderButtons HeaderButtonComponent= {HeaderButton}>
+                <Item
+                    title= "Cart"
+                    iconName= {Platform.OS === 'android' ? "md-menu" : "ios-menu"}
+                    onPress={() => {
+                        navData.navigation.toggleDrawer();
+                    }}
+                />
+            </HeaderButtons>
+        ),
         headerRight: (
             <HeaderButtons HeaderButtonComponent= {HeaderButton}>
                 <Item
