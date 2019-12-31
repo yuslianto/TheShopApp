@@ -3,14 +3,16 @@ import {
     View,
     Text,
     Platform,
+    Button,
     FlatList,
     StyleSheet
 } from "react-native";
 import { useSelector } from 'react-redux';
 import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 
-import HeaderButton from '../../Molekul/UI/HeaderButton'
+import HeaderButton from '../../Molekul/UI/HeaderButton';
 import ProductItem from '../../Molekul/shop/ProductItem';
+import Colors from '../../Template/constants/Colors';
 
 const UserProductScreen = (props) => {
     const userProducts = useSelector(state => state.products.userProducts)
@@ -24,9 +26,23 @@ const UserProductScreen = (props) => {
                     image={itemData.item.imageUrl}
                     title={itemData.item.title}
                     price={itemData.item.price}
-                    onViewDetail={() => {}}
-                    onAddToCart={() => {}}
-                />
+                    onSelect={()=>{}}
+                >
+                    <Button 
+                        color={Colors.primary} 
+                        title="Edit" 
+                        onPress={()=> {
+                            
+                        }} 
+                    />
+                    <Button 
+                        color={Colors.primary} 
+                        title="Delete" 
+                        onPress={() => {
+                            
+                        }} 
+                    />
+                </ProductItem>
             )}
         />
     );
