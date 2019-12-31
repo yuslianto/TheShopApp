@@ -27,7 +27,7 @@ const OrderItem = (props) => {
             />
 
             {showDetails && (
-                <View style={styles.dateilItems}>
+                <View style={styles.detailItems}>
                     {props.items.map(cartItem => (
                         <CartItem  
                             key={cartItem.productId}
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto-Medium',
         color: '#888'
     },
-    dateilItems: {
-        //width: '199%'
+    detailItems: {
+        width: '100%'
     }
 });
 

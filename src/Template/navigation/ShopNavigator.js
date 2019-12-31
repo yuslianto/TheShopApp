@@ -8,6 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProductOverviewScreen from '../../Pages/shop/ProductsOverviewScreen';
 import ProductDetailScreen from '../../Pages/shop/ProductDetailScreen';
 import CartScreen from '../../Pages/shop/CartScreen';
+import UserProductScreen from '../../Pages/user/UserProductsScreen';
 import OrdersScreen from '../../Pages/shop/OrderScreen';
 import Colors from '../constants/Colors';
 
@@ -19,7 +20,7 @@ const defaultNavOptions = {
         fontFamily: 'Roboto-Bold'
     },
     headerBackTitleStyle: {
-        fontFamily: 'Roboto-Light'
+        fontFamily: 'Roboto-Medium'
     },
     headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 }
@@ -56,9 +57,26 @@ const OrderNavigator = createStackNavigator({
     defaultNavigationOptions: defaultNavOptions
 });
 
+const AdminNavigator = createStackNavigator({
+    UserProduct: UserProductScreen
+}, {
+    navigationOptions: {
+        drawerIcon: drawerConfig => (
+            <Ionicons
+                name={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
+                size={23}
+                color={drawerConfig.tintColor}
+            />
+        )
+    },
+    defaultNavigationOptions: defaultNavOptions
+});
+
 const ShopNavigator = createDrawerNavigator({
     Products: ProductsNavigator,
-    Orders: OrderNavigator
+    Orders: OrderNavigator,
+    Admin: AdminNavigator
+
 }, {
     contentOptions: {
         activeTintColor: Colors.primary
