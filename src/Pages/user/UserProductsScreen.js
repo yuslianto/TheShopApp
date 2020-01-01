@@ -7,15 +7,17 @@ import {
     FlatList,
     StyleSheet
 } from "react-native";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../Molekul/UI/HeaderButton';
 import ProductItem from '../../Molekul/shop/ProductItem';
 import Colors from '../../Template/constants/Colors';
+import * as productsAction from '../../Template/store/actions/products';
 
 const UserProductScreen = (props) => {
     const userProducts = useSelector(state => state.products.userProducts)
+    const dispatch = useDispatch();
 
     return (
         <FlatList
@@ -39,7 +41,7 @@ const UserProductScreen = (props) => {
                         color={Colors.primary} 
                         title="Delete" 
                         onPress={() => {
-                            
+                           dispatch(productsAction.deleteProduct(itemData.item.id));
                         }} 
                     />
                 </ProductItem>
