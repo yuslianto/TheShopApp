@@ -19,6 +19,10 @@ const UserProductScreen = (props) => {
     const userProducts = useSelector(state => state.products.userProducts)
     const dispatch = useDispatch();
 
+    const editProducrHandler = (id)=> {
+        props.navigation.navigate('EditProduct', {producrId: id});
+    };
+
     return (
         <FlatList
             data={userProducts}
@@ -34,7 +38,7 @@ const UserProductScreen = (props) => {
                         color={Colors.primary} 
                         title="Edit" 
                         onPress={()=> {
-                            
+                            editProducrHandler(itemData.item.id);
                         }} 
                     />
                     <Button 
@@ -64,6 +68,17 @@ UserProductScreen.navigationOptions = navData => {
                 />
             </HeaderButtons>
         ),
+        headerRight: (
+            <HeaderButtons HeaderButtonComponent= {HeaderButton}>
+                <Item
+                    title= "Add"
+                    iconName= {Platform.OS === 'android' ? "md-create" : "ios-create"}
+                    onPress={() => {
+                        navData.navigation.navigate('EditProduct');
+                    }}
+                />
+            </HeaderButtons>
+        )
     }
 };
 

@@ -10,6 +10,7 @@ import ProductDetailScreen from '../../Pages/shop/ProductDetailScreen';
 import CartScreen from '../../Pages/shop/CartScreen';
 import UserProductScreen from '../../Pages/user/UserProductsScreen';
 import OrdersScreen from '../../Pages/shop/OrderScreen';
+import EditProductScreen from '../../Pages/user/EditProductScreen';
 import Colors from '../constants/Colors';
 
 const defaultNavOptions = {
@@ -58,7 +59,8 @@ const OrderNavigator = createStackNavigator({
 });
 
 const AdminNavigator = createStackNavigator({
-    UserProduct: UserProductScreen
+    UserProduct: UserProductScreen,
+    EditProduct: EditProductScreen
 }, {
     navigationOptions: {
         drawerIcon: drawerConfig => (
