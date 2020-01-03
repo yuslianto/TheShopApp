@@ -1,6 +1,5 @@
 import React from "react";
 import { 
-    View,
     Platform,
     FlatList,
     Button,
@@ -27,37 +26,39 @@ const ProductsOverviewScreen = (props) => {
     }; 
 
     return (
-        <View style={styles.container}>
-            <FlatList
-                data={produts}
-                keyExtractor={item => item.id}
-                renderItem={itemData => (
-                    <ProductItem 
-                        image={itemData.item.imageUrl} 
-                        title={itemData.item.title} 
-                        price={itemData.item.price}  
-                        onSelect={()=> {
-                            selectItemHandler(itemData.item.id, itemData.item.title);
+        <FlatList
+            data={produts}
+            keyExtractor={item => item.id}
+            renderItem={itemData => (
+                <ProductItem 
+                    image={itemData.item.imageUrl} 
+                    title={itemData.item.title} 
+                    price={itemData.item.price}  
+                    onSelect={()=> {
+                        selectItemHandler(
+                            itemData.item.id, itemData.item.title
+                        );
+                    }} 
+                >
+                    <Button 
+                        color={Colors.primary} 
+                        title="View Details" 
+                        onPress={()=> {
+                            selectItemHandler(
+                                itemData.item.id, itemData.item.title
+                            );
                         }} 
-                    >
-                        <Button 
-                            color={Colors.primary} 
-                            title="View Details" 
-                            onPress={()=> {
-                                selectItemHandler(itemData.item.id, itemData.item.title);
-                            }} 
-                        />
-                        <Button 
-                            color={Colors.primary} 
-                            title="To Cart" 
-                            onPress={() => {
-                                dispatch(cartActions.addToCart(itemData.item));
-                            }} 
-                        />
-                    </ProductItem>
-                )}
-            />
-        </View>
+                    />
+                    <Button 
+                        color={Colors.primary} 
+                        title="To Cart" 
+                        onPress={() => {
+                            dispatch(cartActions.addToCart(itemData.item));
+                        }} 
+                    />
+                </ProductItem>
+            )}
+        />
     );
 };
 
@@ -67,8 +68,11 @@ ProductsOverviewScreen.navigationOptions = navData => {
         headerLeft: (
             <HeaderButtons HeaderButtonComponent= {HeaderButton}>
                 <Item
-                    title= "Cart"
-                    iconName= {Platform.OS === 'android' ? "md-menu" : "ios-menu"}
+                    title= "Menu"
+                    iconName= {
+                        Platform.OS === 'android' 
+                        ? "md-menu" : "ios-menu"
+                    }
                     onPress={() => {
                         navData.navigation.toggleDrawer();
                     }}
