@@ -1,7 +1,6 @@
 import React from "react";
 import { 
-    View,
-    Text,
+    Alert,
     Platform,
     Button,
     FlatList,
@@ -13,7 +12,7 @@ import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 import HeaderButton from '../../Molekul/UI/HeaderButton';
 import ProductItem from '../../Molekul/shop/ProductItem';
 import Colors from '../../Template/constants/Colors';
-import * as productsAction from '../../Template/store/actions/products';
+import * as productsActions from '../../Template/store/actions/products';
 
 const UserProductScreen = (props) => {
     const userProducts = useSelector(
@@ -21,8 +20,21 @@ const UserProductScreen = (props) => {
     );
     const dispatch = useDispatch();
 
-    const editProducrHandler = (id)=> {
+    const editProducrHandler = (id) => {
         props.navigation.navigate('EditProduct', {productId: id});
+    };
+
+    const deleteHandler = (id) => {
+        Alert.alert('Are you sure', 'Do you really want to delete this item?',[
+            { text: 'No', style: 'default' },
+            { 
+                text: 'Yes', 
+                style: 'destructive', 
+                onPress: () => {
+                    dispatch(productsActions.deleteProduct(id));
+                }
+            }
+        ])
     };
 
     return (
@@ -48,11 +60,7 @@ const UserProductScreen = (props) => {
                     <Button 
                         color={Colors.primary} 
                         title="Delete" 
-                        onPress={() => {
-                           dispatch(productsActions.deleteProduct(
-                               itemData.item.id
-                            ));
-                        }} 
+                        onPress={deleteHandler.bind(this, itemData.item.id)} 
                     />
                 </ProductItem>
             )}

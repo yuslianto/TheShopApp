@@ -5,7 +5,7 @@ import {
     Button,
     StyleSheet
 } from "react-native";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, useEffect } from 'react-redux';
 import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../Molekul/UI/HeaderButton'
@@ -23,7 +23,7 @@ const ProductsOverviewScreen = (props) => {
             productTitle: title
 
         });
-    }; 
+    };
 
     return (
         <FlatList
@@ -95,8 +95,6 @@ ProductsOverviewScreen.navigationOptions = navData => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center'
     }
 });
 
