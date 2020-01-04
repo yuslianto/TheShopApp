@@ -8,9 +8,10 @@ import {
     StyleSheet
 } from "react-native";
 import { HeaderButtons, Item} from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import HeaderButton from '../../Molekul/UI/HeaderButton';
+import * as productActions from '../../Template/store/actions/products';
 
 const EditProductScreen = (props) => {
 
@@ -18,6 +19,8 @@ const EditProductScreen = (props) => {
     const editedProduct = useSelector(state => 
         state.products.userProducts.find(prod => prod.id === prodId)
     );
+
+    const dispatch = useDispatch();
 
     const [title, setTitle] = useState(
         editedProduct ? editedProduct.title :''
@@ -31,8 +34,17 @@ const EditProductScreen = (props) => {
     );
 
     const submitHandler = useCallback(() => {
-        console.warn('Submiting');
-    }, []);
+        //console.warn('Submiting');
+        if (editedProduct) {
+            dispatch(
+                productActions.updateProduct(prodId, title, description, imageUrl)
+            );
+        } else {
+            dispatch(
+                productActions.createProduct(title, description, imageUrl, +price)
+            );
+        }
+    }, [dispatch, prodId, title, description, imageUrl, price]);
 
     useEffect(() => {
         props.navigation.setParams({
