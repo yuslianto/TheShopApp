@@ -5,6 +5,7 @@ import {
     TextInput,
     ScrollView,
     Platform,
+    Alert,
     StyleSheet
 } from "react-native";
 import { HeaderButtons, Item} from 'react-navigation-header-buttons';
@@ -25,6 +26,7 @@ const EditProductScreen = (props) => {
     const [title, setTitle] = useState(
         editedProduct ? editedProduct.title :''
     );
+    const [titleIsValid, setTitleIsValid] = useState(false);
     const [imageUrl, setImageUrl] = useState(
         editedProduct ? editedProduct.imageUrl :''
     );
@@ -35,6 +37,14 @@ const EditProductScreen = (props) => {
 
     const submitHandler = useCallback(() => {
         //console.warn('Submiting');
+        if (!titleIsValid) {
+            Alert.alert('Wrong input!', 'Please check the error in the form.', [
+                {
+                text: 'Okay'
+                }
+            ]);
+            return;
+        }
         if (editedProduct) {
             dispatch(
                 productActions.updateProduct(prodId, title, description, imageUrl)
@@ -53,6 +63,15 @@ const EditProductScreen = (props) => {
         });
     }, [submitHandler]);
 
+    const titleChangeHandler = text => {
+        if (text.trim().length === 0) {
+            setTitleIsValid(false)
+        } else {
+            setTitleIsValid(true)
+        }
+        setTitle(text);
+    };
+
     return (
         <ScrollView>
             <View style={styles.form}>
@@ -61,7 +80,7 @@ const EditProductScreen = (props) => {
                     <TextInput 
                         style={styles.input}
                         value={title}
-                        onChangeText={text => setTitle(text)}
+                        onChangeText={titleChangeHandler}
                         keyboardType= 'default'
                         autoCapitalize= 'sentences'
                         autoCorrect
@@ -69,6 +88,7 @@ const EditProductScreen = (props) => {
                         onEndEditing= {() => console.warn('onEndEditing')}
                         onSubmitEditing= {()=> console.warn('onSubmitEditing')}
                     />
+                    {!titleIsValid && <Text>Please enter a valid title!</Text>}
                 </View>
                 <View style={styles.formContol}>
                     <Text style={styles.label} >Image URL</Text>
