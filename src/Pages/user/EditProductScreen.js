@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import HeaderButton from '../../Molekul/UI/HeaderButton';
 import * as productActions from '../../Template/store/actions/products';
+import Input from '../../Molekul/UI/Input';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -135,51 +136,40 @@ const EditProductScreen = (props) => {
     return (
         <ScrollView>
             <View style={styles.form}>
-                <View style={styles.formContol}>
-                    <Text style={styles.label} >Title</Text>
-                    <TextInput 
-                        style={styles.input}
-                        value={formState.inputValues.title}
-                        onChangeText={textChangeHandler.bind(this, 'title')}
-                        keyboardType= 'default'
-                        autoCapitalize= 'sentences'
-                        autoCorrect
-                        returnKeyType= 'next'
-                        onEndEditing= {() => console.warn('onEndEditing')}
-                        onSubmitEditing= {()=> console.warn('onSubmitEditing')}
-                    />
-                    {!formState.inputValidities.title && <Text>Please enter a valid title!</Text>}
-                </View>
-                <View style={styles.formContol}>
-                    <Text style={styles.label} >Image URL</Text>
-                    <TextInput 
-                        style={styles.input}
-                        value={formState.inputValues.imageUrl}
-                        onChangeText={textChangeHandler.bind(this, 'imageUrl')}
-                    />
-                </View>
+                <Input
+                    label='Title'
+                    errorText='Please enter a valid title!'
+                    keyboardType= 'default'
+                    autoCapitalize= 'sentences'
+                    autoCorrect
+                    returnKeyType= 'next'
+                />
+                <Input
+                    label='Image Url'
+                    errorText='Please enter a valid image url!'
+                    keyboardType= 'default'
+                    returnKeyType= 'next'
+                />
                 {editedProduct
                     ? null
                     : (
-                        <View style={styles.formContol}>
-                            <Text style={styles.label} >Price</Text>
-                            <TextInput 
-                                style={styles.input}
-                                value={formState.inputValues.price}
-                                onChangeText={textChangeHandler.bind(this, 'price')}
-                                keyboardType='decimal-pad'
-                            />
-                        </View>
+                        <Input
+                            label='Price'
+                            errorText='Please enter a valid price!'
+                            keyboardType= 'decimal-pad'
+                            returnKeyType= 'next'
+                        />
                     )
                 }
-                <View style={styles.formContol}>
-                    <Text style={styles.label} >Description</Text>
-                    <TextInput 
-                        style={styles.input}
-                        value={formState.inputValues.description}
-                        onChangeText={textChangeHandler.bind(this, 'description')}
-                    />
-                </View>
+                <Input
+                    label='Description'
+                    errorText='Please enter a valid description!'
+                    keyboardType= 'default'
+                    autoCapitalize= 'sentences'
+                    autoCorrect
+                    multiline
+                    numberOfLine={3}
+                />
             </View>
         </ScrollView>
     );
