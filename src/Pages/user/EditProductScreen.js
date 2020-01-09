@@ -64,20 +64,6 @@ const EditProductScreen = (props) => {
         }, 
         formIsValid: editedProduct ? true : false,
     });
-    {/*
-        const [title, setTitle] = useState(
-            editedProduct ? editedProduct.title :''
-        );
-        const [titleIsValid, setTitleIsValid] = useState(false);
-        const [imageUrl, setImageUrl] = useState(
-            editedProduct ? editedProduct.imageUrl :''
-        );
-        const [price, setPrice] = useState('');
-        const [description, setDescription] = useState(
-            editedProduct ? editedProduct.description :''
-        );
-    
-    */}
 
     const submitHandler = useCallback(() => {
         //console.warn('Submiting');
@@ -118,57 +104,74 @@ const EditProductScreen = (props) => {
         });
     }, [submitHandler]);
 
-    const textChangeHandler = (inputUdentifier, text) => {
-        let isValid = false;
-        if (text.trim().length > 0) {
-            //setTitleIsValid(false)
-            isValid = true;
-        }
-        //setTitle(text);
-        dispatchFormState({
-            type: FORM_INPUT_UPDATE, 
-            value: text,
-            isValid: isValid,
-            input: inputUdentifier
-        });
-    };
+    const inputChangeHandler = useCallback(
+        (inputUdentifier, inputValue, inputValidity) => {
+            dispatchFormState({
+                type: FORM_INPUT_UPDATE, 
+                value: inputValue,
+                isValid: inputValidity,
+                input: inputUdentifier
+            });
+        },
+        [dispatchFormState]
+    );
 
     return (
         <ScrollView>
             <View style={styles.form}>
                 <Input
+                    id="title"
                     label='Title'
                     errorText='Please enter a valid title!'
                     keyboardType= 'default'
                     autoCapitalize= 'sentences'
                     autoCorrect
                     returnKeyType= 'next'
+                    onInputChange={inputChangeHandler}
+                    initialValue={editedProduct ? editedProduct.title : ''}
+                    initiallyValid={!!editedProduct}
+                    required
                 />
                 <Input
+                    id="imageUrl"
                     label='Image Url'
                     errorText='Please enter a valid image url!'
                     keyboardType= 'default'
                     returnKeyType= 'next'
+                    onInputChange={inputChangeHandler}
+                    initialValue={editedProduct ? editedProduct.imageUrl : ''}
+                    initiallyValid={!!editedProduct}
+                    required
                 />
                 {editedProduct
                     ? null
                     : (
                         <Input
+                            id="price"
                             label='Price'
                             errorText='Please enter a valid price!'
                             keyboardType= 'decimal-pad'
                             returnKeyType= 'next'
+                            onInputChange={inputChangeHandler}
+                            required
+                            min={0.1}
                         />
                     )
                 }
                 <Input
+                    id="description"
                     label='Description'
                     errorText='Please enter a valid description!'
                     keyboardType= 'default'
                     autoCapitalize= 'sentences'
                     autoCorrect
                     multiline
-                    numberOfLine={3}
+                    numberOfLines={3}
+                    onInputChange={inputChangeHandler}
+                    initialValue={editedProduct ? editedProduct.description : ''}
+                    initiallyValid={!!editedProduct}
+                    required
+                    minLength={5}
                 />
             </View>
         </ScrollView>
@@ -198,19 +201,6 @@ EditProductScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
     form: {
         margin: 20
-    },
-    formContol: {
-        width: '100%'
-    },
-    label: {
-        fontFamily: 'Roboto-BOld',
-        marginVertical: 8,
-    },
-    input: {
-        paddingHorizontal: 2,
-        paddingVertical: 5,
-        borderBottomColor: '#ccc',
-        borderBottomWidth: 1
     }
 });
 
