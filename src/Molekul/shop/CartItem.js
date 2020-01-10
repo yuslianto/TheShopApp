@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const CartItem = (props) => {
+const CartItem = props => {
     return (
-        <View style={styles.carItem}>
+        <View style={styles.cartItem}>
             <View style={styles.itemData}>
                 <Text style={styles.quantity}>{props.quantity} </Text>
                 <Text style={styles.mainText}>{props.title}</Text>
@@ -18,13 +18,14 @@ const CartItem = (props) => {
             <View style={styles.itemData}>
                 <Text style={styles.mainText}>${props.amount.toFixed(2)}</Text>
                 {props.deletable && (
-                    <TouchableOpacity style={styles.deleteButton}
+                    <TouchableOpacity
                         onPress={props.onRemove}
+                        style={styles.deleteButton}
                     >
                         <Ionicons
                             name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'}
-                            color="red"
                             size={23}
+                            color="red"
                         />
                     </TouchableOpacity>
                 )}
@@ -32,9 +33,9 @@ const CartItem = (props) => {
         </View>
     );
 };
-
+  
 const styles = StyleSheet.create({
-    carItem: {
+    cartItem: {
         padding: 10,
         backgroundColor: 'white',
         flexDirection: 'row',
@@ -47,12 +48,12 @@ const styles = StyleSheet.create({
     },
     quantity: {
         fontFamily: 'Roboto-Medium',
-        fontSize: 16,
-        color: '#888'
+        color: '#888',
+        fontSize: 16
     },
     mainText: {
         fontFamily: 'Roboto-Bold',
-        fontSize: 16,
+        fontSize: 16
     },
     deleteButton: {
         marginLeft: 20
@@ -60,3 +61,4 @@ const styles = StyleSheet.create({
 });
 
 export default CartItem;
+  

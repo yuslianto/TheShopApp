@@ -8,43 +8,40 @@ import {
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import CartItem from './CartItem';
-import Cart from '../UI/Cart';
+import Card from '../UI/Card';
 
-const OrderItem = (props) => {
-    const [showDetails, setShowDetails] = useState(false)
-
+const OrderItem = props => {
+    const [showDetails, setShowDetails] = useState(false);
+  
     return (
-        <Cart style={styles.orderItem}>
+        <Card style={styles.orderItem}>
             <View style={styles.summary}>
-                <Text style={styles.totalAmount}>{props.amount.toFixed(2)}</Text>
+                <Text style={styles.totalAmount}>${props.amount.toFixed(2)}</Text>
                 <Text style={styles.date}>{props.date}</Text>
             </View>
             <Button
                 color={Colors.primary}
-                title={showDetails ? "Hide Details" : "Show Details"}
+                title={showDetails ? 'Hide Details' : 'Show Details'}
                 onPress={() => {
-                    setShowDetails(prevState => !prevState)
+                    setShowDetails(prevState => !prevState);
                 }}
             />
-
             {showDetails && (
                 <View style={styles.detailItems}>
                     {props.items.map(cartItem => (
-                        <CartItem  
+                        <CartItem
                             key={cartItem.productId}
                             quantity={cartItem.quantity}
                             amount={cartItem.sum}
                             title={cartItem.productTitle}
-
                         />
                     ))}
                 </View>
             )}
-
-        </Cart>
+        </Card>
     );
 };
-
+  
 const styles = StyleSheet.create({
     orderItem: {
         margin: 20,
@@ -73,3 +70,4 @@ const styles = StyleSheet.create({
 });
 
 export default OrderItem;
+  

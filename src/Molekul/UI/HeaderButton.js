@@ -1,16 +1,13 @@
 import React from "react";
 import { 
-    View,
-    Text,
     Platform,
-    StyleSheet
 } from "react-native";
 import { HeaderButton } from 'react-navigation-header-buttons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colors from '../../Template/constants/Colors';
 
-const CustomHeaderButton = (props) => {
+const CustomHeaderButton = props => {
     return (
         <HeaderButton
             {...props}
@@ -20,12 +17,5 @@ const CustomHeaderButton = (props) => {
         />
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-       
-    }
-});
-
+  
 export default CustomHeaderButton;

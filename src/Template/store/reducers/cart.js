@@ -7,9 +7,9 @@ const initialState = {
     items: {},
     totalAmount: 0
 };
-
+  
 export default (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case ADD_TO_CART:
             const addedProduct = action.product;
             const prodPrice = addedProduct.price;
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
             let updatedOrNewCartItem;
 
             if (state.items[addedProduct.id]) {
-                // already have theitem in the cart
+                // already have the item in the cart
                 updatedOrNewCartItem = new CartItem(
                     state.items[addedProduct.id].quantity + 1,
                     prodPrice,
@@ -27,28 +27,26 @@ export default (state = initialState, action) => {
                 );
             } else {
                 updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
-            };
+            }
             return {
                 ...state,
-                items: { ...state.items, [addedProduct.id] : updatedOrNewCartItem },
+                items: { ...state.items, [addedProduct.id]: updatedOrNewCartItem },
                 totalAmount: state.totalAmount + prodPrice
             };
         case REMOVE_FROM_CART:
             const selectedCartItem = state.items[action.pid];
-            const currentQty = state.items[action.pid].quantity;
+            const currentQty = selectedCartItem.quantity;
             let updatedCartItems;
-
             if (currentQty > 1) {
-                // need to reduce it, not efase it
-                const updatedCsrtItem = new CartItem(
-                    selectedCartItem.quantity -1,
+                // need to reduce it, not erase it
+                const updatedCartItem = new CartItem(
+                    selectedCartItem.quantity - 1,
                     selectedCartItem.productPrice,
                     selectedCartItem.productTitle,
                     selectedCartItem.sum - selectedCartItem.productPrice
                 );
-                updatedCartItems = { ...state.items, [action.pid]: updatedCsrtItem };
+                updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
             } else {
-                // to erase it
                 updatedCartItems = { ...state.items };
                 delete updatedCartItems[action.pid];
             }
@@ -63,7 +61,7 @@ export default (state = initialState, action) => {
             if (!state.items[action.pid]) {
                 return state;
             }
-            const updatedItems = {...state.items};
+            const updatedItems = { ...state.items };
             const itemTotal = state.items[action.pid].sum;
             delete updatedItems[action.pid];
             return {
@@ -75,3 +73,4 @@ export default (state = initialState, action) => {
 
     return state;
 };
+  

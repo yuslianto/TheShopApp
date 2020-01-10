@@ -13,28 +13,23 @@ import Colors from '../../Template/constants/Colors';
 import * as cartActions from '../../Template/store/actions/cart';
 
 
-const ProductDetail = (props) => {
-    const produkId = props.navigation.getParam('productId');
-    // to selected product by id
-    const selectedProduct = useSelector(state => 
-        state.products.availableProducts.find(prod => prod.id === produkId
-    ));
-
+const ProductDetailScreen = props => {
+    const productId = props.navigation.getParam('productId');
+    const selectedProduct = useSelector(state =>
+        state.products.availableProducts.find(prod => prod.id === productId)
+    );
     const dispatch = useDispatch();
 
     return (
         <ScrollView>
-            <Image
-                style={styles.image}
-                source={{uri: selectedProduct.imageUrl}}
-            />
+            <Image style={styles.image} source={{ uri: selectedProduct.imageUrl }} />
             <View style={styles.actions}>
                 <Button
-                    title="Add to cart"
-                    onPress={()=>{
+                    color={Colors.primary}
+                    title="Add to Cart"
+                    onPress={() => {
                         dispatch(cartActions.addToCart(selectedProduct));
                     }}
-                    color= {Colors.primary}
                 />
             </View>
             <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
@@ -42,17 +37,17 @@ const ProductDetail = (props) => {
         </ScrollView>
     );
 };
-
-ProductDetail.navigationOptions = navData => {
+  
+ProductDetailScreen.navigationOptions = navData => {
     return {
         headerTitle: navData.navigation.getParam('productTitle')
     };
 };
-
+  
 const styles = StyleSheet.create({
     image: {
-        height: 300,
-        width: '100%'
+        width: '100%',
+        height: 300
     },
     actions: {
         marginVertical: 10,
@@ -60,16 +55,17 @@ const styles = StyleSheet.create({
     },
     price: {
         fontSize: 20,
-        fontFamily: 'Roboto-Bold',
         color: '#888',
         textAlign: 'center',
         marginVertical: 20,
+        fontFamily: 'Roboto-Bold'
     },
     description: {
-        fontSize: 14,fontFamily: 'Roboto-Light',
+        fontFamily: 'Roboto-Medium',
+        fontSize: 14,
         textAlign: 'center',
         marginHorizontal: 20
-    },
+    }
 });
-
-export default ProductDetail;
+  
+export default ProductDetailScreen;
