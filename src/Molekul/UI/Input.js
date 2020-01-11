@@ -74,7 +74,7 @@ const Input = props => {
             />
             {!inputState.isValid && inputState.touched && (
                 <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{props.errorText}</Text>
+                    <Text style={styles.errorText}>{props.errorText}</Text>
                 </View>
             )}
         </View>
@@ -99,6 +99,9 @@ const styles = StyleSheet.create({
         marginVertical: 5
     },
     errorText: {
+        fontFamily: 'Roboto-Medium',
+        color: 'red',
+        fontSize: 13
     }
 });
 
