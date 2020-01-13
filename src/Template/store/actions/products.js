@@ -8,24 +8,33 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const fetchProducts = () => {
     return async dispatch => {
         // any aync code you want
-        const response = await fetch(
-            `https://theshopapps.firebaseio.com/products.json`
-        );
+        try {
+            const response = await fetch(
+                `https://theshopapps.firebaseio.com/products.json`
+            );
 
-        const resData = await response.json();
-        const loadedProducts = [];
-        for (const key in resData) {
-            loadedProducts.push(new Product(
-                key, 
-                'u1', 
-                resData[key].title, 
-                resData[key].imageUrl, 
-                resData[key].description, 
-                resData[key].price
-            
-            ));
+            if (!response.ok) {
+                throw new Error('Something went wrong!!')
+            }
+    
+            const resData = await response.json();
+            const loadedProducts = [];
+
+            for (const key in resData) {
+                loadedProducts.push(new Product(
+                    key, 
+                    'u1', 
+                    resData[key].title, 
+                    resData[key].imageUrl, 
+                    resData[key].description, 
+                    resData[key].price
+                ));
+            }
+            dispatch({ type: SET_PRODUCTS, products: loadedProducts});
+        } catch (err) {
+            //send to custom analytics sersver
+            throw err;
         }
-        dispatch({ type: SET_PRODUCTS, products: loadedProducts});
     };
 };
 
@@ -36,7 +45,7 @@ export const deleteProduct = productId => {
 export const createProduct = (title, description, imageUrl, price) => {
     return async dispatch => {
         // any aync code you want
-        const response = await fetch(`https://theshopapps.firebaseio.com/products.json`, {
+        const response = await fetch(``, {
             method: 'POST',
             headers: {
                 'Content-Type': 'aplication/json'
@@ -50,8 +59,6 @@ export const createProduct = (title, description, imageUrl, price) => {
         });
 
         const resData = await response.json();
-
-        console.warn(resData);
 
         dispatch({
             type: CREATE_PRODUCT,
