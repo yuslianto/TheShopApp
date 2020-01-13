@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { 
     Platform,
     FlatList,
@@ -10,11 +10,16 @@ import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 import HeaderButton from '../../Molekul/UI/HeaderButton'
 import ProductItem from '../../Molekul/shop/ProductItem';
 import * as cartActions from '../../Template/store/actions/cart';
+import * as productsActions from '../../Template/store/actions/products';
 import Colors from '../../Template/constants/Colors';
 
 const ProductsOverviewScreen = props => {
     const products = useSelector(state => state.products.availableProducts);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(productsActions.fetchProducts());
+      }, [dispatch]);
   
     const selectItemHandler = (id, title) => {
         props.navigation.navigate('ProductDetail', {

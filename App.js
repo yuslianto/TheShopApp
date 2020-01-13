@@ -1,7 +1,6 @@
 /** */
 
 import React from 'react';
-import { Text, View } from 'react-native';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { enableScreens } from 'react-native-screens';
