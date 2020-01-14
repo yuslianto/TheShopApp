@@ -15,6 +15,7 @@ import * as ordersActions from '../../Template/store/actions/orders';
 import Card from '../../Molekul/UI/Card';
 
 const CartScreen = props => {
+    console.log('cart screen')
     const cartTotalAmount = useSelector(state => state.cart.totalAmount);
     const cartItems = useSelector(state => {
         const transformedCartItems = [];

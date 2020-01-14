@@ -14,6 +14,7 @@ import * as cartActions from '../../Template/store/actions/cart';
 
 
 const ProductDetailScreen = props => {
+    console.log('Product Detail')
     const productId = props.navigation.getParam('productId');
     const selectedProduct = useSelector(state =>
         state.products.availableProducts.find(prod => prod.id === productId)
